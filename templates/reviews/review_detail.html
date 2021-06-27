@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  review
+{% endblock page_title %}
+
+
+{% block content %}
+
+<div class="flex flex-col items-center bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+<h2 class="font-bold">{{review.text}}</h2>
+<div class="flex items-center my-2">
+  <div class="bg-orange-400 text-white px-3 shadow-md py-1 rounded-full mx-4">{{review.book}}</div>
+  <div class="bg-orange-400 text-white px-3 shadow-md py-1 rounded-full mx-4">{{review.movie}}</div>
+  <div class="text-red-600">♥︎{{review.rating}}</div>
+</div>
+<div class="my-2">created_by:
+  <div class="inline-block bg-white shadow-md rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{review.created_by}}</div>
+</div>
+<div class="flex">
+  {% if request.user.username == review.created_by %}
+    <a class="bg-blue-400 hover:bg-blue-600 text-white font-bold mt-4 py-2 px-4 rounded" href="{% url 'reviews:delete' review.pk %}">Delete Review</a>
+  {% else %}
+    <span class="mt-4 py-2 px-4 rounded">If you Delete This Review :</span> <a class="bg-blue-400 hover:bg-blue-600 text-white font-bold mt-4 py-2 px-4 rounded" href="{% url 'users:login' %}">Log In</a>
+  {% endif %}
+</div>
+</div>
+
+{% endblock content %}
